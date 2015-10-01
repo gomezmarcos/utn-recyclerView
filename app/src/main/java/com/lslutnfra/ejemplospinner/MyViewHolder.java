@@ -15,8 +15,9 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     private MainActivity context;
     public TextView mNombre;
     public TextView mApellido;
+    public int position;
 
-    public MyViewHolder(final Context context, final View itemView) {
+    public MyViewHolder(final MainActivity context, final View itemView) {
         super(itemView);
 
         mNombre = (TextView) itemView.findViewById(R.id.txtNombre);
@@ -25,7 +26,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, mNombre.getText()+new Date().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, mNombre.getText(), Toast.LENGTH_SHORT).show();
+                context.metodoLoco(position);
             }
         });
     }

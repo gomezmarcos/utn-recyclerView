@@ -1,9 +1,11 @@
 package com.lslutnfra.ejemplospinner;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -12,23 +14,23 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    ArrayList<Persona> personas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         /*
-        ArrayList<String> lista = null; // = new ArrayList<String>();
-        lista.add("opcion 1");
+        ArrayList<String> personas = null; // = new ArrayList<String>();
+        personas.add("opcion 1");
         */
 
-        ArrayList<Persona> lista = new ArrayList<>();
         for(int i=0; i<100; i++)
-            lista.add(new Persona("pepito "+i,"perez"));
+            personas.add(new Persona("pepito "+i,"perez"));
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.list);
 
-        MyAdapter adapter = new MyAdapter(this, lista);
+        MyAdapter adapter = new MyAdapter(this, personas);
 
         rv.setAdapter(adapter);
 
@@ -56,5 +58,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void metodoLoco(int position){
+        Persona persona = personas.get(position);
+        Log.e("metodoLoco", "se hizo click en item: " + persona.getNombre());
+        Bundle bundle = new Bundle();
+        bundle.putString("ape", persona.getApellido());
+        Intent intent = new Intent(this,NextActivity.class);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 }

@@ -40,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter{
         MyViewHolder mvh = (MyViewHolder) viewHolder;
         mvh.mNombre.setText(p.getNombre());
         mvh.mApellido.setText(p.getApellido());
+        mvh.position=position;
     }
 
     @Override
