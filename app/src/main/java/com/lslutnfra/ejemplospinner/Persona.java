@@ -14,6 +14,14 @@ public class Persona {
         this.apellido = apellido;
     }
 
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre()
     {
         return nombre;

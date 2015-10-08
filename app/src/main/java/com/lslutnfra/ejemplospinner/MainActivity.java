@@ -1,5 +1,6 @@
 package com.lslutnfra.ejemplospinner;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Persona> personas = new ArrayList<>();
+    public static final int REQ_CODE = 1001;
+    public static ArrayList<Persona> personas ;
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +28,13 @@ public class MainActivity extends AppCompatActivity {
         personas.add("opcion 1");
         */
 
+        personas = new ArrayList<>();
         for(int i=0; i<100; i++)
             personas.add(new Persona("pepito "+i,"perez"));
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.list);
 
-        MyAdapter adapter = new MyAdapter(this, personas);
+        adapter = new MyAdapter(this, personas);
 
         rv.setAdapter(adapter);
 
@@ -65,9 +69,19 @@ public class MainActivity extends AppCompatActivity {
         Log.e("metodoLoco", "se hizo click en item: " + persona.getNombre());
         Bundle bundle = new Bundle();
         bundle.putString("ape", persona.getApellido());
+        bundle.putInt("position", position);
         Intent intent = new Intent(this,NextActivity.class);
         intent.putExtras(bundle);
 
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent, REQ_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE && resultCode == Activity.RESULT_OK){
+            adapter.notifyDataSetChanged();
+        }
     }
 }

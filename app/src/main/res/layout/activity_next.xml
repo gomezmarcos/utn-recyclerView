@@ -15,5 +15,11 @@
         android:text="La segunda pantalla papá"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/aceptar"
+        android:layout_below="@id/default1"
+        android:text="Aceptar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
